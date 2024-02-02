@@ -1,0 +1,156 @@
+
+<div className="w-full flex p-6 items-center justify-between">
+<div className=" flex-col justify-center items-start gap-1.5 inline-flex">
+  <div className="flex-col justify-start items-start flex">
+    <div className="w-full text-neutral-600 text-sm font-normal font-['Poppins'] leading-[21px]">
+      {filter.name}
+    </div>
+    <div className=" h-6 justify-start items-start gap-0.5 inline-flex">
+      <div className="text-zinc-900 flex items-start text-base gap-2 font-medium font-['Poppins'] leading-normal">
+        {filter.sale === true ? (
+          <>
+            <span>
+              {newPrices(filter.percent, filter.price)}{" "}
+              <sup>DA</sup>
+            </span>
+            <div className="text-neutral-400 text-base font-normal font-['Poppins'] line-through leading-normal">
+              {(filter.price / 1.0).toFixed(2)} DA
+            </div>
+          </>
+        ) : (
+          <span>
+            {(filter.price / 1.0).toFixed(2)} <sup>DA</sup>
+          </span>
+        )}
+      </div>
+    </div>
+  </div>
+  <div className="justify-start items-start bg-red-500 inline-flex">
+    <div className="w-3 h-3 relative" />
+    <div className="w-3 h-3 relative" />
+    <div className="w-3 h-3 relative" />
+    <div className="w-3 h-3 relative" />
+    <div className="w-3 h-3 relative" />
+  </div>
+</div>
+<button
+  onClick={() => {
+    dispatch(addProduct(filter));
+  }}
+  className="w-10 h-10 bg-zinc-100 group/seif hover:bg-green-500 rounded-full flex items-center justify-center disabled:cursor-not-allowed disabled:opacity-25 disabled:bg-zinc-500"
+  disabled={filter.stock === false}
+>
+  <Logo
+    type="shopping"
+    className="fill-none group-disabled/seif:stroke-black group-hover/seif:stroke-white stroke-black "
+  />
+</button>
+</div>
+{/*//// visual and quick shop*/}
+<div className="opacity-0 top-0 group-hover:opacity-100 duration-1000 cursor-pointer w-10 h-[86px] right-[20px] group-hover:top-[20px] absolute">
+<div className="w-10 h-10 left-0 top-0 absolute flex-col justify-start items-start inline-flex">
+  <div
+    className="w-10 h-10 hover:bg-green-300 shadow-xl bg-white rounded-full border flex items-center justify-center border-zinc-200"
+    onClick={() =>
+      setId(filters.filter((data) => data._id === filter._id))
+    }
+  >
+    <Modal data={!!Id === true && Id[0]} />
+  </div>
+</div>
+<div className="w-10 h-10 left-0 top-[46px] absolute flex-col justify-start items-start inline-flex">
+  <div
+    onClick={() => {
+      dispatch(addToFavorite(filter));
+    }}
+    className="w-10 h-10 hover:bg-green-300 shadow-xl bg-white rounded-full border flex items-center justify-center border-zinc-200"
+  >
+    <Logo type="wishlist" className="fill-none  stroke-black " />
+  </div>
+</div>
+</div>
+{/*  status of stock */}
+<div className="absolute top-[20px] left-[20px] gap-5 flex items-start justify-start flex-col-reverse ">
+{filter.stock === false && (
+  <div className=" h-[27px] px-2 py-[3px] bg-zinc-900 rounded justify-center items-center gap-1 inline-flex">
+    <div className="text-white text-sm font-normal font-['Poppins'] leading-[21px]">
+      Out of Stock
+    </div>
+  </div>
+)}
+{/*  ///annouce of sold with percent /// */}
+{filter.sale === true && (
+  <div className=" h-[27px] px-2 py-[3px] bg-red-500 rounded justify-center items-center gap-1 inline-flex">
+    <div className="text-white text-sm font-normal font-['Poppins'] leading-[21px]">
+      Sale
+    </div>
+    <div className="text-white text-sm font-medium font-['Poppins'] leading-[21px]">
+      {filter.percent} %
+    </div>
+  </div>
+)}
+</div>
+////////////////
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import Products from "../components/products/Products";
+import Users from "../components/users/Users";
+
+const App2 = () => {
+  return (
+    <>
+      <div className="bg-red-500">seif</div>
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.jsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
+    </>
+  );
+};
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <>
+      <Router>
+        {/* <Navbar />
+        <Menu /> */}
+        <Routes>
+          <Route path="/users" element={<Users />} />
+          <Route path="/products" element={<Products />} />
+          {/* <Route path="/account" element={<Dashboard />}>
+            <Route index element={<Main />} />
+            <Route path="history" element={<Order />}>
+              <Route index element={<Mainorder />} />
+              <Route path="details" element={<Details />} />
+            </Route>
+            <Route path="setting" element={<Setting />} />
+          </Route> */}
+        </Routes>
+        {/* <Footer /> */}
+      </Router>
+    </>
+  );
+}
+
+export default App;
