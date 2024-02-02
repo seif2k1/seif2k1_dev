@@ -11,7 +11,7 @@ import Users from "../components/users/Users";
 import Filter from "../components/filters/Filter";
 import Demo123 from "../components/pagination/Pagination";
 
-const App2 = () => {
+const App = () => {
   return (
     <>
       <div className="bg-red-500">seif</div>
@@ -39,7 +39,7 @@ const App2 = () => {
   );
 };
 
-function App() {
+function App2() {
   const [count, setCount] = useState(0);
 
   return (
